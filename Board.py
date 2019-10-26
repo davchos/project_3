@@ -21,7 +21,6 @@ class Board:
         self.save_paths()
         self.setup_tools()
         self.setup_personnage()
-        #self.mac = mac
         
     def getdirection(self,plig,pcol):
         dirs = []
