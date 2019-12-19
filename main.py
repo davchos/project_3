@@ -1,20 +1,30 @@
 
-from getkey import getkey, keys
+import pygame
+from pygame.locals import *
 
+
+# 
 from Manager import Manager
 from Personnage import Personnage
 from Board import Board
 
+# Import constantes
+from constantes import *
+
+
+
+# build acceuil screen 
 
 if  __name__ == "__main__":
-    game = Manager()
-    print(game.mac.position)
+    mac = Personnage(image_mac)
+    board = Board()
+    manager = Manager(mac, board)
+    manager.play()
     
-    while True:
-        game.getuserinput()
-        game.display()
+    
 
     
+
 
 
 

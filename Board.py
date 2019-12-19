@@ -1,10 +1,14 @@
 import numpy as np
 import random
+from constantes import *
+import pygame
+from pygame.locals import * 
+
 
 
 
 class Board:
-    def __init__(self, nbcol=15, nblig=15, startlig=1, startcol=3, wall='*', numberoftools=3):
+    def __init__(self):
         self.numberoftools=numberoftools
         self.nbcol = nbcol
         self.nblig  = nblig
@@ -105,6 +109,37 @@ class Board:
                     self.mac = i
                     n = False
                     break
+
+    def display_board(self, window):
+        im_wall = pygame.image.load(image_wall).convert()
+        #im_tool = pygame.image.load(image_tool).convert()
+        im_gardien = pygame.image.load(image_gardien).convert()
+        #im_floor = pygame.image.load(image_floor).convert()
+        window = window
+
+        for i in range(nblig):
+            for j in range(nbcol):
+                y = i * taille_sprite
+                x = j * taille_sprite
+                print(self.grid[(i,j)])
+                print(x,y)
+                if self.grid[(i,j)] == '*':
+                    window.blit(im_wall, (x,y))
+                #elif self.grid[(i,j)] == ' ':
+                #    window.blit(im_floor, (x,y))
+                #elif self.grid[(i,j)] == 'H':
+                #    window.blit(im_tool, (x,y))
+                elif self.grid[(i,j)] == 'X':
+                    window.blit(im_gardien, (x,y))
+                #elif self.grid[(i,j)] == 'S':
+                #    window.blit(image_mac, (x,y))
+        #pygame.display.flip()      
+
+                
+            
+
+
+
 
 
         
