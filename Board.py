@@ -79,10 +79,7 @@ class Board:
         last = 0
         for i in range(len(self.path)-1):
             if abs(self.path[i][0] - self.path[i+1][0]) > 1  or abs(self.path[i][1] - self.path[i+1][1]) > 1:
-                print("path")
                 self.paths.append(self.path[last:i+1])
-                print(self.path[last:i+1])
-                print()
                 last = i+1
 
     def setup_tools(self):
@@ -110,12 +107,13 @@ class Board:
                     n = False
                     break
 
-    def display_board(self, window):
-        im_wall = pygame.image.load(image_wall).convert()
-        im_tool = pygame.image.load(image_tool).convert_alpha()
-        im_gardien = pygame.image.load(image_gardien).convert_alpha()
-        im_floor = pygame.image.load(image_floor).convert()
-        window = window
+    def init_board(self, window):
+        self.im_wall = pygame.image.load(image_wall).convert()
+        self.im_tool = pygame.image.load(image_tool).convert_alpha()
+        self.im_gardien = pygame.image.load(image_gardien).convert_alpha()
+        self.im_floor = pygame.image.load(image_floor).convert()
+        self.im_mac = pygame.image.load(image_mac).convert_alpha()  
+        self.window = window
 
         for i in range(nblig):
             for j in range(nbcol):
@@ -124,16 +122,17 @@ class Board:
                 print(self.grid[(i,j)])
                 print(x,y)
                 if self.grid[(i,j)] == '*':
-                    window.blit(im_wall, (x,y))
+                    window.blit(self.im_wall, (x,y))
                 elif self.grid[(i,j)] == ' ':
-                    window.blit(im_floor, (x,y))
+                    window.blit(self.im_floor, (x,y))
                 elif self.grid[(i,j)] == 'H':
-                    window.blit(im_tool, (x,y))
+                    window.blit(self.im_tool, (x,y))
                 elif self.grid[(i,j)] == 'X':
-                    window.blit(im_gardien, (x,y))
-                #elif self.grid[(i,j)] == 'S':
-                #    window.blit(image_mac, (x,y))
-        #pygame.display.flip()      
+                    window.blit(self.im_gardien, (x,y))
+                elif self.grid[(i,j)] == 'S':
+                    window.blit(self.im_mac, (x,y))
+         
+ 
 
                 
             

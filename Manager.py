@@ -12,9 +12,15 @@ class Manager(Manager_base):
         self.mac = mac
         self.b = board
         self.mac.update_pos((self.b.paths[self.b.mac][-1][0], self.b.paths[self.b.mac][-1][1]))
+        self.setup_pygame()
+        self.b.init_board(self.window)
+        pygame.display.flip() 
+
+    def setup_pygame(self):
         pygame.init()
         self.window = pygame.display.set_mode((cote_fenetre, cote_fenetre))
         
+              
     def handlekey(self):
         """ This function handle game logic """
         posx,posy = self.mac.move(self.d)
@@ -44,9 +50,13 @@ class Manager(Manager_base):
             else:
                 exit("You are a looser !!!")    
 
-    def display(self):
-        self.b.display_board(self.window)
-        self.mac.display_personnage(self.window)
+    def display_personnage(self):
+        x_old, y_old  = [i * taille_sprite for i in self.mac.old_position]
+        x, y  = [i * taille_sprite for i in self.mac.position]
+        if (x,y) == (0,0) or (x_old,y_old) == (0,0):
+            return
+        self.window.blit(self.b.im_floor, (y_old,x_old))
+        self.window.blit(self.b.im_mac, (y,x))
         
             
 

@@ -28,7 +28,7 @@ class Manager_base():
     def save_game(self):
         pass
 
-    def display(self):
+    def display_personnage(self):
         pass
     
     def play(self):
@@ -36,7 +36,7 @@ class Manager_base():
             pygame.time.Clock().tick(30)
             if self.getuserinput():
                 self.handlekey()    
-            self.display()
+            self.display_personnage()
             pygame.display.flip()
 
     def getuserinput(self):  

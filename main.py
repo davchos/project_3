@@ -16,7 +16,7 @@ from constantes import *
 # build acceuil screen 
 
 if  __name__ == "__main__":
-    mac = Personnage(image_mac)
+    mac = Personnage()
     board = Board()
     manager = Manager(mac, board)
     manager.play()
