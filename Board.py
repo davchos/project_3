@@ -112,9 +112,9 @@ class Board:
 
     def display_board(self, window):
         im_wall = pygame.image.load(image_wall).convert()
-        #im_tool = pygame.image.load(image_tool).convert()
-        im_gardien = pygame.image.load(image_gardien).convert()
-        #im_floor = pygame.image.load(image_floor).convert()
+        im_tool = pygame.image.load(image_tool).convert_alpha()
+        im_gardien = pygame.image.load(image_gardien).convert_alpha()
+        im_floor = pygame.image.load(image_floor).convert()
         window = window
 
         for i in range(nblig):
@@ -125,10 +125,10 @@ class Board:
                 print(x,y)
                 if self.grid[(i,j)] == '*':
                     window.blit(im_wall, (x,y))
-                #elif self.grid[(i,j)] == ' ':
-                #    window.blit(im_floor, (x,y))
-                #elif self.grid[(i,j)] == 'H':
-                #    window.blit(im_tool, (x,y))
+                elif self.grid[(i,j)] == ' ':
+                    window.blit(im_floor, (x,y))
+                elif self.grid[(i,j)] == 'H':
+                    window.blit(im_tool, (x,y))
                 elif self.grid[(i,j)] == 'X':
                     window.blit(im_gardien, (x,y))
                 #elif self.grid[(i,j)] == 'S':

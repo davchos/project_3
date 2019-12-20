@@ -5,28 +5,18 @@ from pygame.locals import *
 from Manager_base import Manager_base
 from constantes import *
 
-
-
-
-
 class Manager(Manager_base):
 
     def __init__(self, mac=None, board=None):
+        #super().__init__()
         self.mac = mac
         self.b = board
         self.mac.update_pos((self.b.paths[self.b.mac][-1][0], self.b.paths[self.b.mac][-1][1]))
         pygame.init()
         self.window = pygame.display.set_mode((cote_fenetre, cote_fenetre))
         
-        #self.mac_image = pygame.image.load(self.mac.image).convert()
-        #self.wall_image = pygame.image.load(image_wall).convert()
-        #self.tool_image = pygame.image.load(image_tool).convert()
-        #self.gardien_image = pygame.image.load(image_gardien).convert()
-        #self.floor_image = pygame.image.load(image_floor).convert()
-        
-        
-
     def handlekey(self):
+        """ This function handle game logic """
         posx,posy = self.mac.move(self.d)
         if (posx,posy) == (0,0):
             return
@@ -54,26 +44,10 @@ class Manager(Manager_base):
             else:
                 exit("You are a looser !!!")    
 
-    #def display(self):
-    #    for i in range(self.b.nblig):
-    #        for j in range(self.b.nbcol):
-    #            print(self.b.grid[(i,j)], end='')
-
     def display(self):
         self.b.display_board(self.window)
         self.mac.display_personnage(self.window)
         
-
-    def play(self):
-        while self.stop:
-            pygame.time.Clock().tick(30)
-            if self.getuserinput():
-                print("key pressed")
-                self.handlekey() 
-            print("calling display")    
-            self.display()
-            print("returning display")
-            pygame.display.flip() 
             
 
 
