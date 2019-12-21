@@ -1,13 +1,10 @@
 
-import pygame
-
 from constantes import *
 
 class Personnage():
     def __init__(self):
         self.position = (0,0)
         self.old_position = (0,0)
-        #self.new_position = [0,0]
         self.bag = 0
         
     def move(self, user_key):
@@ -27,10 +24,4 @@ class Personnage():
         self.position = pos
           
     def update_bag(self):
-        self.bag += 1    
-
-
-
-
-
-    
+        self.bag += 1

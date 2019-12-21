@@ -8,20 +8,7 @@ class Manager_base():
     """
     stop = True
     d = ()
-    #def __init__(self):
-    #    pygame.init()
-    #    self.window = pygame.display.set_mode((cote_fenetre, cote_fenetre))
-
-    #def getuserinput(self):  
-    #    for event in pygame.event.get():      
-    #        if event.type == KEYDOWN:
-    #            if event.key in [UP, DOWN, LEFT, RIGHT]:
-    #                self.d = event.key
-    #        if event.key == 'Q':
-    #            self.stop = False
-    #            self.save_game()
-    #            exit() 
-
+    
     def handlekey(self, d=None):
         pass
 
@@ -32,6 +19,9 @@ class Manager_base():
         pass
     
     def play(self):
+        """
+           Main loop of the game
+        """
         while self.stop:
             pygame.time.Clock().tick(30)
             if self.getuserinput():
@@ -39,7 +29,7 @@ class Manager_base():
             self.display_personnage()
             pygame.display.flip()
 
-    def getuserinput(self):  
+    def getuserinput(self):
         temp = True
         for event in pygame.event.get():      
             if event.type == KEYDOWN:

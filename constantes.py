@@ -1,9 +1,4 @@
-#import pygame
 import pygame
-from pygame.locals import *
-
-
-"""Constantes du jeu Mac"""
 
 #Parametres de la fenetre
 nombre_sprite_cote = 15
@@ -21,8 +16,6 @@ titre_fenetre = "Mac Gyver"
 image_icone = "images/MacGyver.png"
 
 #Listes des images du jeu
-#image_accueil = "images/main.png"
-#image_fond = "images/background.jpg"
 image_wall = "images/wall.png"
 image_gardien = "images/Gardien.png"
 image_mac = "images/MacGyver.png"

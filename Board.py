@@ -27,6 +27,10 @@ class Board:
         self.setup_personnage()
         
     def getdirection(self,plig,pcol):
+        """ 
+        retrun all the possible directions possible from a given position 
+        
+        """
         dirs = []
         if plig - 2 > 0:
             if self.grid[(plig-2,pcol)] == self.wall:    
@@ -43,10 +47,19 @@ class Board:
         return dirs                            
 
     def digwall(self,plig,pcol):
+        """ 
+        mark the cell as floor (" "), and add it to the path
+        
+        """
         self.grid[(plig,pcol)] = " "
         self.path.append([plig,pcol])
 
     def explore(self,plig,pcol):
+        """ 
+            Part of DFS algo, at the begining all cells are wall.
+            Uses recursivity to visit randomly cells
+        
+        """
         self.digwall(plig,pcol)
         self.explored +=1
         while self.explored < (self.nblig * self.nbcol/2):
@@ -73,8 +86,7 @@ class Board:
 
     def save_paths(self):
         """ Start from (startlig,startcol)
-        output contains the visited nodes
-        queue the current visite noted for nodes x 
+        save the branch of the tree as a [], and queue it in paths
         """
         last = 0
         for i in range(len(self.path)-1):
@@ -83,7 +95,7 @@ class Board:
                 last = i+1
 
     def setup_tools(self):
-        """ place randomly the tools """
+        """ place randomly the tools, Todo check the placement and nulber of tools"""
         for i in range(self.numberoftools):
             n = True 
             while n:
@@ -108,6 +120,7 @@ class Board:
                     break
 
     def init_board(self, window):
+        """ This function blit the board on the window """
         self.im_wall = pygame.image.load(image_wall).convert()
         self.im_tool = pygame.image.load(image_tool).convert_alpha()
         self.im_gardien = pygame.image.load(image_gardien).convert_alpha()

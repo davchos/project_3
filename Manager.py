@@ -1,14 +1,12 @@
 
 import pygame
 from pygame.locals import *
-#from getkey import getkey, keys
 from Manager_base import Manager_base
 from constantes import *
 
 class Manager(Manager_base):
 
     def __init__(self, mac=None, board=None):
-        #super().__init__()
         self.mac = mac
         self.b = board
         self.mac.update_pos((self.b.paths[self.b.mac][-1][0], self.b.paths[self.b.mac][-1][1]))
@@ -17,6 +15,9 @@ class Manager(Manager_base):
         pygame.display.flip() 
 
     def setup_pygame(self):
+        """
+           Iint pygame, and create the pygame window
+        """
         pygame.init()
         self.window = pygame.display.set_mode((cote_fenetre, cote_fenetre))
         
