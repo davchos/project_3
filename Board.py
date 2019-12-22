@@ -1,86 +1,74 @@
-import numpy as np
+"""
+Class to manage the game play
+"""
 import random
-from constantes import *
 import pygame
-from pygame.locals import * 
+import numpy as np
+from constantes import *
+#from pygame.locals import *
 
 
-
-
-class Board:
+class Board(object):
+    """ Class to manage game play """
     def __init__(self):
-        self.numberoftools=numberoftools
-        self.nbcol = nbcol
-        self.nblig  = nblig
         self.explored = 0
-        self.startlig = startlig
-        self.startcol = startcol
-        self.wall = wall
-        self.grid = np.full((nblig,nbcol), self.wall)
+        self.grid = np.full((nblig, nbcol), wall)
         self.tools = []
         self.path = []
         self.paths = []
         self.mac = []
-        self.explore(startlig,startcol)
+        self.explore(startlig, startcol)
         self.save_paths()
         self.setup_tools()
         self.setup_personnage()
-        
-    def getdirection(self,plig,pcol):
-        """ 
-        retrun all the possible directions possible from a given position 
-        
-        """
+
+    def getdirection(self, plig, pcol):
+        """ retrun all the possible directions possible from a given position """
         dirs = []
         if plig - 2 > 0:
-            if self.grid[(plig-2,pcol)] == self.wall:    
+            if self.grid[(plig-2, pcol)] == wall:
                 dirs.append("up")
-        if pcol + 2 < self.nbcol - 1:
-            if self.grid[(plig,pcol+2)] == self.wall:    
+        if pcol + 2 < nbcol - 1:
+            if self.grid[(plig, pcol+2)] == wall:
                 dirs.append("right")
-        if plig + 2 < self.nblig - 1:
-            if self.grid[(plig+2,pcol)] == self.wall:
-                dirs.append("down")  
+        if plig + 2 < nblig - 1:
+            if self.grid[(plig+2, pcol)] == wall:
+                dirs.append("down")
         if pcol - 2 > 0:
-            if self.grid[(plig,pcol-2)] == self.wall:
+            if self.grid[(plig, pcol-2)] == wall:
                 dirs.append("left")
-        return dirs                            
+        return dirs
 
-    def digwall(self,plig,pcol):
-        """ 
-        mark the cell as floor (" "), and add it to the path
-        
+    def digwall(self, plig, pcol):
+        """ mark the cell as floor (" "), and add it to the path """
+        self.grid[(plig, pcol)] = " "
+        self.path.append([plig, pcol])
+
+    def explore(self, plig, pcol):
         """
-        self.grid[(plig,pcol)] = " "
-        self.path.append([plig,pcol])
-
-    def explore(self,plig,pcol):
-        """ 
             Part of DFS algo, at the begining all cells are wall.
             Uses recursivity to visit randomly cells
-        
         """
-        self.digwall(plig,pcol)
-        self.explored +=1
-        while self.explored < (self.nblig * self.nbcol/2):
-            dirs = self.getdirection(plig,pcol)
-            print(dirs)
-            if len(dirs) != 0:
+        self.digwall(plig, pcol)
+        self.explored += 1
+        while self.explored < (nblig * nbcol/2):
+            dirs = self.getdirection(plig, pcol)
+            if dirs:
                 choice = random.randrange(len(dirs))
-                d = dirs[choice]
-                print("direction is %s",d)
-                if d == "up":
-                    self.digwall(plig-1,pcol)
-                    self.explore(plig-2,pcol)
-                if d == "right":
-                    self.digwall(plig,pcol+1)
-                    self.explore(plig,pcol+2)
-                if d == "down":
-                    self.digwall(plig+1,pcol)
-                    self.explore(plig+2,pcol)
-                if d == "left":
-                    self.digwall(plig,pcol-1)
-                    self.explore(plig,pcol-2)
+                temp_choice = dirs[choice]
+                print("direction is %s", temp_choice)
+                if temp_choice == "up":
+                    self.digwall(plig-1, pcol)
+                    self.explore(plig-2, pcol)
+                if temp_choice == "right":
+                    self.digwall(plig, pcol+1)
+                    self.explore(plig, pcol+2)
+                if temp_choice == "down":
+                    self.digwall(plig+1, pcol)
+                    self.explore(plig+2, pcol)
+                if temp_choice == "left":
+                    self.digwall(plig, pcol-1)
+                    self.explore(plig, pcol-2)
             else:
                 break
 
@@ -89,34 +77,37 @@ class Board:
         save the branch of the tree as a [], and queue it in paths
         """
         last = 0
-        for i in range(len(self.path)-1):
-            if abs(self.path[i][0] - self.path[i+1][0]) > 1  or abs(self.path[i][1] - self.path[i+1][1]) > 1:
-                self.paths.append(self.path[last:i+1])
-                last = i+1
+        for temp_0 in range(len(self.path)-1):
+            if abs(self.path[temp_0][0] - self.path[temp_0+1][0]) > 1 \
+               or abs(self.path[temp_0][1] - self.path[temp_0+1][1]) > 1:
+                self.paths.append(self.path[last:temp_0+1])
+                last = temp_0+1
 
     def setup_tools(self):
         """ place randomly the tools, Todo check the placement and nulber of tools"""
-        for i in range(self.numberoftools):
-            n = True 
-            while n:
-                c = random.randrange(1,len(self.paths)) 
-                b = random.randrange(1,len(self.paths[c]))
-                 
-                if self.paths[c][b] not in self.tools and ( c != 0 and b != 0 ) and ( c != self.mac and b < len(self.paths[c]) - 2 ):
-                    self.grid[(self.paths[c][b][0],self.paths[c][b][1])] = "H"
-                    self.tools.append((self.paths[c][b][0],self.paths[c][b][1]))
-                    n = False
+        for i in range(numberoftools):
+            temp_0 = True
+            while temp_0:
+                temp_1 = random.randrange(1, len(self.paths))
+                temp_2 = random.randrange(1, len(self.paths[temp_1]))
+                if self.paths[temp_1][temp_2] not in self.tools \
+                   and (temp_1 != 0 and temp_2 != 0) \
+                   and (temp_1 != self.mac and temp_2 < len(self.paths[temp_1]) - 2):
+                    self.grid[(self.paths[temp_1][temp_2][0], self.paths[temp_1][temp_2][1])] = "H"
+                    self.tools.append((self.paths[temp_1][temp_2][0], \
+                        self.paths[temp_1][temp_2][1]))
+                    temp_0 = False
 
     def setup_personnage(self):
         """ place Mac and the bad guy on the board """
-        self.grid[(self.paths[0][0][0],self.paths[0][0][1])] = "X"
-        n = True
-        while n:
-            for i in range(1,len(self.paths)):
-                if len(self.paths[i]) > 3:
-                    self.grid[(self.paths[i][-1][0],self.paths[i][-1][1])] = "S"
-                    self.mac = i
-                    n = False
+        self.grid[(self.paths[0][0][0], self.paths[0][0][1])] = "X"
+        temp_1 = True
+        while temp_1:
+            for temp_2 in range(1, len(self.paths)):
+                if len(self.paths[temp_2]) > 3:
+                    self.grid[(self.paths[temp_2][-1][0], self.paths[temp_2][-1][1])] = "S"
+                    self.mac = temp_2
+                    temp_1 = False
                     break
 
     def init_board(self, window):
@@ -125,37 +116,21 @@ class Board:
         self.im_tool = pygame.image.load(image_tool).convert_alpha()
         self.im_gardien = pygame.image.load(image_gardien).convert_alpha()
         self.im_floor = pygame.image.load(image_floor).convert()
-        self.im_mac = pygame.image.load(image_mac).convert_alpha()  
+        self.im_mac = pygame.image.load(image_mac).convert_alpha()
         self.window = window
 
         for i in range(nblig):
             for j in range(nbcol):
-                y = i * taille_sprite
-                x = j * taille_sprite
-                print(self.grid[(i,j)])
-                print(x,y)
-                if self.grid[(i,j)] == '*':
-                    window.blit(self.im_wall, (x,y))
-                elif self.grid[(i,j)] == ' ':
-                    window.blit(self.im_floor, (x,y))
-                elif self.grid[(i,j)] == 'H':
-                    window.blit(self.im_tool, (x,y))
-                elif self.grid[(i,j)] == 'X':
-                    window.blit(self.im_gardien, (x,y))
-                elif self.grid[(i,j)] == 'S':
-                    window.blit(self.im_mac, (x,y))
+                y_pos = i * taille_sprite
+                x_pos = j * taille_sprite
+                if self.grid[(i, j)] == '*':
+                    window.blit(self.im_wall, (x_pos, y_pos))
+                elif self.grid[(i, j)] == ' ':
+                    window.blit(self.im_floor, (x_pos, y_pos))
+                elif self.grid[(i, j)] == 'H':
+                    window.blit(self.im_tool, (x_pos, y_pos))
+                elif self.grid[(i, j)] == 'X':
+                    window.blit(self.im_gardien, (x_pos, y_pos))
+                elif self.grid[(i, j)] == 'S':
+                    window.blit(self.im_mac, (x_pos, y_pos))
          
- 
-
-                
-            
-
-
-
-
-
-        
-        
-   
-
-

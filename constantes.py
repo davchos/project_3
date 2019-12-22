@@ -25,4 +25,5 @@ UP = pygame.K_UP
 DOWN = pygame.K_DOWN
 RIGHT = pygame.K_RIGHT
 LEFT = pygame.K_LEFT
-KEYDOWN= pygame.KEYDOWN
+KEYDOWN = pygame.KEYDOWN
+QUIT = pygame.QUIT

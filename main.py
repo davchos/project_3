@@ -1,12 +1,13 @@
+"""
+code to launch the game
+"""
 
-import pygame
-from pygame.locals import *
-from Manager import Manager
-from Personnage import Personnage
-from Board import Board
+from manager import Manager
+from personnage import Personnage
+from board import Board
 
 if  __name__ == "__main__":
-    mac = Personnage()
-    board = Board()
-    manager = Manager(mac, board)
-    manager.play()
+    MAC = Personnage()
+    BOARD = Board()
+    MANAGER = Manager(MAC, BOARD)
+    MANAGER.play()
