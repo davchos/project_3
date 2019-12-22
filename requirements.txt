@@ -1,0 +1,4 @@
+altgraph==0.16.1
+macholib==1.11
+numpy==1.17.4
+pygame==1.9.6
