@@ -21,15 +21,13 @@ pygame==1.9.6
 
 ### Installing
 
-
-
 ```
 git clone https://github.com/davchos/project_3.git
 
-virtualenv mac_game
+virtualenv -p python3 mac_game
 source mac_game/bin/activate
 cd project_3
-pip install requirements.txt
+pip install -r requirements.txt
 
 
 To launch the game:
