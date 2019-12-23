@@ -59,4 +59,5 @@ class Manager(ManagerBase):
             return
         self.window.blit(self.b.im_floor, (y_old, x_old))
         self.window.blit(self.b.im_mac, (y_new, x_new))
+def test():
         
