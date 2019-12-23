@@ -2,9 +2,8 @@
 Manager of the game
 """
 import pygame
-#from pygame.locals import *
-from manager_base import ManagerBase
-from constantes import wall, cote_fenetre, taille_sprite
+from base_manager import ManagerBase
+from const import wall, cote_fenetre, taille_sprite
 
 class Manager(ManagerBase):
     """ Manage the game """
@@ -59,5 +58,5 @@ class Manager(ManagerBase):
             return
         self.window.blit(self.b.im_floor, (y_old, x_old))
         self.window.blit(self.b.im_mac, (y_new, x_new))
-def test():
+
         

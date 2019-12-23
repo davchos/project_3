@@ -4,7 +4,20 @@ Class to manage the game play
 import random
 import pygame
 import numpy as np
-from constantes import *
+from const import (
+    nbcol, 
+    nblig, 
+    wall,
+    startcol,
+    startlig,
+    taille_sprite,
+    numberoftools,
+    image_floor,
+    image_gardien,
+    image_mac,
+    image_tool,
+    image_wall
+) 
 #from pygame.locals import *
 
 

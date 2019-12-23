@@ -3,7 +3,7 @@ Base class to manage the game
 """
 import pygame
 #from pygame.locals import *
-from constantes import QUIT, KEYDOWN
+from const import QUIT, KEYDOWN
 
 class ManagerBase(object):
     """

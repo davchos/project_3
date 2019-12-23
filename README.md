@@ -1,6 +1,5 @@
-# Project 3 Openclass Python developper Path
+# Project Maze game
 
-This project is a maze game. 
 
 ## Getting Started
 
@@ -19,7 +18,7 @@ numpy==1.17.4
 pygame==1.9.6
 ```
 
-### Installing
+### Install
 
 ```
 git clone https://github.com/davchos/project_3.git
@@ -41,11 +40,6 @@ python main.py
 
 * **David Chosrova** - *Initial work* - 
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
 
 
 

@@ -1,7 +1,7 @@
 """
 Class to handle pernnage
 """
-from constantes import UP, DOWN, LEFT, RIGHT
+from const import UP, DOWN, LEFT, RIGHT
 
 class Personnage(object):
     """ Personnage class """
